@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "clean": "rimraf dist",
-    "dev:build": "yarn run clean && cross-env NODE_ENV=development MONGO_ID=admin MONGO_PW=a123456 webpack",
-    "dev": "cross-env NODE_ENV=development MONGO_ID=admin MONGO_PW=a123456 nodemon ./dist/index.bundle.js",
+    "dev:build": "yarn run clean && cross-env NODE_ENV=development webpack",
+    "dev": "cross-env NODE_ENV=development nodemon ./dist/index.bundle.js",
     "test": "jest --forceExit --coverage --verbose",
     "lint": "eslint src/**/*",
     "lint:fix": "eslint src/**/* --quiet --fix"

@@ -1,5 +1,6 @@
 import express from 'express';
-
+import dotenv from 'dotenv';
+dotenv.config();
 import {constants} from './configs/constants';
 import {middlewaresConfig} from './configs/middlewares';
 import {errorMiddleware} from './middlewares';
@@ -20,9 +21,9 @@ middlewaresConfig(app);
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods',
-      'OPTIONS, GET, POST, PUT, PATCH, DELETE');
+    'OPTIONS, GET, POST, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers',
-      'Content-Type, Authorization');
+    'Content-Type, Authorization');
   next();
 });
 
