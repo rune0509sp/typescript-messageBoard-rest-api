@@ -56,13 +56,13 @@ describe('GET', () => {
   //   expect(response.status).toBe(422);
   //   done();
   // });
-  // it('Login should return 200', async (done) => {
-  //   const response = await request(app).post('/api/v1/user/login').send({
-  //     'email': 'go@go.com',
-  //     'password': 'aA123456'
+  //   it('Login should return 200', async (done) => {
+  //     const response = await request(app).post('/api/v1/users/login').send({
+  //       'email': 'go@go.com',
+  //       'password': 'aA123456'
+  //     })
+  //     console.log(response.body);
+  //     expect(response.status).toBe(200);
+  //     done();
   //   })
-  //   console.log(response.body);
-  //   expect(response.status).toBe(200);
-  //   done();
-  // })
 });

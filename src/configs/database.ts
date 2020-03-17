@@ -8,6 +8,7 @@ export const connectMongoose = async () => {
       useCreateIndex: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useFindAndModify: false,
     });
     console.log('mongoDB conneted');
   } catch (err) {

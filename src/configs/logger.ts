@@ -13,30 +13,30 @@ if (!fs.existsSync(logDir)) {
 }
 
 const logFormat = winston.format.combine(
-  winston.format.timestamp({
-    format: 'YYYY-MM-DD HH:mm:ss',
-  }),
-  winston.format.align(),
-  winston.format.prettyPrint(),
+    winston.format.timestamp({
+      format: 'YYYY-MM-DD HH:mm:ss',
+    }),
+    winston.format.align(),
+    winston.format.prettyPrint(),
 );
 
 const infoTransport = new DailyRotateFile({
   filename: 'info-%DATE%.log',
-  datePattern: 'yyyy-MM-dd',
+  datePattern: 'YYYY-MM-DD',
   dirname: logDir,
   level: 'info',
 });
 
 const errorTransport = new DailyRotateFile({
   filename: 'error-%DATE%.log',
-  datePattern: 'yyyy-MM-dd',
+  datePattern: 'YYYY-MM-DD',
   dirname: logDir,
   level: 'error',
 });
 
 const debugTransport = new DailyRotateFile({
   filename: 'bebug-%DATE%.log',
-  datePattern: 'yyyy-MM-dd',
+  datePattern: 'YYYY-MM-DD',
   dirname: logDir,
   level: 'debug',
 });

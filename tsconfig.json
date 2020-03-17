@@ -14,6 +14,6 @@
     "lib": ["ES6"]
   },
   "include": ["./src/**/*"],
-  "exclude": ["node_modules"],
-  "files": ["./src/configs/custom.d.ts"]
+  "exclude": ["node_modules"]
+  // "files": ["./src/configs/custom.d.ts"]
 }

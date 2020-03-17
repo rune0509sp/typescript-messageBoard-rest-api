@@ -7,5 +7,5 @@ export const createPostValidation = Joi.object({
 
 export const updatePostValidation = Joi.object({
   title: Joi.string().min(3),
-  text: Joi.string().min(10)
-})
+  text: Joi.string().min(10),
+});

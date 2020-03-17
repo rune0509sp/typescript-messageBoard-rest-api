@@ -4,6 +4,7 @@ import {compareSync, hashSync} from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import uniqueValidator from 'mongoose-unique-validator';
 
+import {Post} from '../post/Post';
 import {passwordReg} from './userValidation';
 import {constants} from '../../configs/constants';
 
@@ -15,6 +16,7 @@ export type UserDocument = Document & {
   lastName: string,
   userName: string,
   password: string,
+  favorites: {posts: [Schema.Types.ObjectId]}
 
 
   // methods
@@ -23,6 +25,10 @@ export type UserDocument = Document & {
   createToken: () => string,
   toJSON: () => UserJson,
   toAuthJSON: () => UserJson
+  _favorites: {
+    posts(postId: string): Promise<UserDocument>,
+    isPostFavorite(postId: string): boolean
+  }
 }
 
 export type UserModel = Model<UserDocument> & {}
@@ -76,13 +82,19 @@ const UserSchema = new Schema({
       message: '{VALUE} is not a valid password!',
     },
   },
+  favorites: {
+    posts: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Post',
+    }],
+  },
 }, {timestamps: true});
 
 UserSchema.plugin(uniqueValidator, {
   message: '{VALUE} already taken!',
 });
 
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', function(next) {
   const user = this as UserDocument;
   if (user.isModified('password')) {
     user.password = user._hashPassword(user.password);
@@ -99,11 +111,11 @@ UserSchema.methods = {
   },
   createToken(): string {
     return jwt.sign(
-      {
-        _id: this._id,
-      },
-      constants.JWT_SECRET,
-      {expiresIn: constants.JWT_EXPIRESIN},
+        {
+          _id: this._id,
+        },
+        constants.JWT_SECRET,
+        {expiresIn: constants.JWT_EXPIRESIN},
     );
   },
   toAuthJSON(): UserJson {
@@ -121,9 +133,28 @@ UserSchema.methods = {
     };
   },
 
+  _favorites: {
+    async posts(postId: Schema.Types.ObjectId) {
+      if (this.favorites.posts.indexOf(postId) >= 0) {
+        this.favorites.posts.remove(postId);
+        await Post.decFavoriteCount(postId);
+      } else {
+        this.favorites.posts.push(postId);
+        await Post.incFavoriteCount(postId);
+      }
+      return this.save();
+    },
+    isPostFavorite(postId) {
+      if (this.favorites.posts.indexOf(postId) >= 0) {
+        return true;
+      }
+
+      return false;
+    },
+  },
 };
 
 UserSchema.statics = {
-}
+};
 
 export const User = model<UserDocument, UserModel>('User', UserSchema);

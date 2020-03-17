@@ -6,10 +6,10 @@ export type IError = Error & {
 }
 
 export const errorMiddleware = (
-  error: IError,
-  req: Request,
-  res: Response,
-  next: NextFunction) => {
+    error: IError,
+    req: Request,
+    res: Response,
+    next: NextFunction) => {
   const status = error.statusCode || 500;
   const message = error.message;
   const data = error.data;
