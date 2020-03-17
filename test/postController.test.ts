@@ -34,18 +34,18 @@ describe('GET', () => {
   //   done();
   // });
 
-  it('get list of posts should return 200', async (done) => {
-    const response =
-      await request(app).get('/api/v1/posts').query({
-        currentPage: 1,
-        perPage: 3
-      }).set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTZhNTk4ZTc5NzZmYTkwNjQ4MzdhNWIiLCJpYXQiOjE1ODQ0MTkzMTYsImV4cCI6MTU4NDUwNTcxNn0.4ZFEcq0bk_IXyylu0V7oRhvdFMIlTQJJQUlJQVEMyZg')
+  // it('get list of posts should return 200', async (done) => {
+  //   const response =
+  //     await request(app).get('/api/v1/posts').query({
+  //       currentPage: 1,
+  //       perPage: 3
+  //     }).set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTZhNTk4ZTc5NzZmYTkwNjQ4MzdhNWIiLCJpYXQiOjE1ODQ0MTkzMTYsImV4cCI6MTU4NDUwNTcxNn0.4ZFEcq0bk_IXyylu0V7oRhvdFMIlTQJJQUlJQVEMyZg')
 
-    console.log(response.body);
+  //   console.log(response.body);
 
-    expect(response.status).toBe(200);
-    done();
-  });
+  //   expect(response.status).toBe(200);
+  //   done();
+  // });
 
   // it('update post should return 200', async (done) => {
   //   const response =
@@ -71,14 +71,15 @@ describe('GET', () => {
   //   done();
   // })
 
-  // it('get post by id should return 200', async (done) => {
-  //   const response =
-  //     await request(app).get('/api/v1/posts/5e6c4df10f8d0a73404ad511')
-  //       .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTZhNTk4ZTc5NzZmYTkwNjQ4MzdhNWIiLCJpYXQiOjE1ODQ0MTkzMTYsImV4cCI6MTU4NDUwNTcxNn0.4ZFEcq0bk_IXyylu0V7oRhvdFMIlTQJJQUlJQVEMyZg')
+  it('get post by id should return 200', async (done) => {
+    // login with dodo / dodo subscribes gogo
+    const response =
+      await request(app).get('/api/v1/posts/5e6c4df10f8d0a73404ad511')
+        .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTZkMDFlNWEyZWNlMTA0NzhlMmI0OWEiLCJpYXQiOjE1ODQ0NDYwNjEsImV4cCI6MTU4NDUzMjQ2MX0.Avl2U4FhVpMpV6oTm9QhLDHKuskE3mE4ieZuXMxfhqw')
 
-  //   console.log(response.body);
+    console.log(response.body);
 
-  //   expect(response.status).toBe(200);
-  //   done()
-  // })
+    expect(response.status).toBe(200);
+    done()
+  })
 });

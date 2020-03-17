@@ -22,8 +22,8 @@ export type PostModel = Model<PostDocument> & {
   createPost(args: PostDocument, user: UserDocument): Promise<PostDocument>;
   list(skip: number | undefined,
     limit: number | undefined): Promise<[PostDocument]>;
-  incFavoriteCount(postId: Schema.Types.ObjectId): Promise<PostDocument>;
-  decFavoriteCount(postId: Schema.Types.ObjectId): Promise<PostDocument>;
+  incFavoriteCount(postId: string): Promise<PostDocument>;
+  decFavoriteCount(postId: string): Promise<PostDocument>;
 }
 
 type PostJson = {
@@ -69,7 +69,7 @@ PostSchema.plugin(uniqueValidator, {
   message: '{VALUE} already taken!',
 });
 
-PostSchema.pre('validate', function(next) {
+PostSchema.pre('validate', function (next) {
   const post = this as PostDocument;
   post._slugify();
 
@@ -103,10 +103,10 @@ PostSchema.statics = {
   },
   list(skip: number = 0, limit: number = 5): Promise<[PostDocument]> {
     return this.find()
-        .sort({createdAt: -1})
-        .skip(skip)
-        .limit(limit)
-        .populate('user');
+      .sort({createdAt: -1})
+      .skip(skip)
+      .limit(limit)
+      .populate('user');
   },
   incFavoriteCount(postId): Promise<PostDocument> {
     return this.findByIdAndUpdate(postId, {$inc: {favoriteCount: 1}});

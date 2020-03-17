@@ -56,6 +56,7 @@ describe('GET', () => {
   //   expect(response.status).toBe(422);
   //   done();
   // });
+
   //   it('Login should return 200', async (done) => {
   //     const response = await request(app).post('/api/v1/users/login').send({
   //       'email': 'go@go.com',
@@ -65,4 +66,13 @@ describe('GET', () => {
   //     expect(response.status).toBe(200);
   //     done();
   //   })
+
+  // it('subscribe should return 200', async (done) => {
+  //   const response =
+  //     await request(app).post('/api/v1/users/subscribe/5e6a598e7976fa9064837a5b').set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTZhNTk4ZTc5NzZmYTkwNjQ4MzdhNWIiLCJpYXQiOjE1ODQ0MTkzMTYsImV4cCI6MTU4NDUwNTcxNn0.4ZFEcq0bk_IXyylu0V7oRhvdFMIlTQJJQUlJQVEMyZg')
+
+  //   console.log(response.body);
+  //   expect(response.status).toBe(200);
+  //   done();
+  // })
 });

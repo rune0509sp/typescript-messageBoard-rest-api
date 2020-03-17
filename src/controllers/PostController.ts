@@ -42,6 +42,7 @@ class PostController {
       const promise = await Promise.all([
         User.findById(user._id),
         Post.findById(req.params.id).populate('user'),
+        Post.findById(req.params.id)
       ]);
 
       if (!promise[0]) {
@@ -53,11 +54,13 @@ class PostController {
 
       const favorite = promise[0]._favorites.isPostFavorite(req.params.id);
       const post = promise[1];
+      const isSubscribeTheCreator = promise[0]._favorites.isSubscribe(promise[2]!.user.toString());
 
 
       return res.status(HTTPStatus.OK).json({
         ...post.toJSON(),
         favorite,
+        isSubscribeTheCreator
       });
     } catch (e) {
       return res.status(HTTPStatus.BAD_REQUEST).json(e);

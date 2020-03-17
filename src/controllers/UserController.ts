@@ -5,7 +5,8 @@ import {controller, post, put, get, use} from './decorators';
 import {User, UserDocument} from '../models/user/User';
 import {userSignupValidation} from '../models/user/userValidation';
 import {validator} from '../middlewares';
-import {authLocal} from '../configs/passport';
+import {authLocal, authJwt} from '../configs/passport';
+import httpStatus from 'http-status';
 
 /**
  * user route root/api/version/user/
@@ -35,5 +36,22 @@ class UserController {
     const user = req.user as UserDocument;
     res.status(HTTPStatus.OK).json(user.toAuthJSON());
     return next();
+  }
+
+  /**
+   * root/api/subscribe/userId
+   */
+  @post('/subscribe/:id')
+  @use(authJwt)
+  async subscribe(req: Request, res: Response, next: NextFunction) {
+    try {
+      const user = req.user as UserDocument;
+      const subscribeMessage = await user._favorites.subscribe(req.params.id);
+
+      res.status(httpStatus.OK).json(subscribeMessage);
+    } catch (e) {
+      res.status(httpStatus.BAD_REQUEST).json(e);
+    }
+
   }
 }
